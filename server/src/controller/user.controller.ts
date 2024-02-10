@@ -11,7 +11,6 @@ const signUp = async (req, res: Response) => {
     throw new Error("Empty fields found");
   }
 
-  console.log(userName);
   const userNameExists = await User.findOne({ userName });
   if (userNameExists)
     throw new Error("Username already exists , try something unique!!");
@@ -19,7 +18,7 @@ const signUp = async (req, res: Response) => {
   const hashedPassword = await bcrypt.hash(password, 12);
   if (!hashedPassword) throw new Error("Error while hasing password.");
 
-  const user = await User.create({
+  await User.create({
     firstName,
     lastName,
     userName,
@@ -47,8 +46,8 @@ const signIn = async (req, res: Response) => {
   if (!isPasswordCorrect) throw new Error("Incorrect password entered.");
 
   //generate token
-  const uid = userExists.id;
-  const token = jwt.sign({ uid }, ENV_CONFIG.ACCESS_TOKEN_KEY, {
+  const _id = userExists.id;
+  const token = jwt.sign({ _id }, ENV_CONFIG.ACCESS_TOKEN_KEY, {
     expiresIn: ENV_CONFIG.ACCESS_TOKEN_EXPIRY,
   });
 
