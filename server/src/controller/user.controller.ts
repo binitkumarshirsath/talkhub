@@ -11,7 +11,8 @@ const signUp = async (req, res: Response) => {
     throw new Error("Empty fields found");
   }
 
-  const userNameExists = await User.findOne(userName);
+  console.log(userName);
+  const userNameExists = await User.findOne({ userName });
   if (userNameExists)
     throw new Error("Username already exists , try something unique!!");
 
@@ -37,7 +38,7 @@ const signIn = async (req, res: Response) => {
 
   if (!userName || !password) throw new Error("Empty fields found.");
 
-  const userExists = await User.findOne(userName);
+  const userExists = await User.findOne({ userName });
 
   if (!userExists) throw new Error("No user found.");
 
@@ -46,7 +47,8 @@ const signIn = async (req, res: Response) => {
   if (!isPasswordCorrect) throw new Error("Incorrect password entered.");
 
   //generate token
-  const token = jwt.sign(userExists.id, ENV_CONFIG.ACCESS_TOKEN_KEY, {
+  const uid = userExists.id;
+  const token = jwt.sign({ uid }, ENV_CONFIG.ACCESS_TOKEN_KEY, {
     expiresIn: ENV_CONFIG.ACCESS_TOKEN_EXPIRY,
   });
 
@@ -64,3 +66,5 @@ const signIn = async (req, res: Response) => {
     success: true,
   });
 };
+
+export { signIn, signUp };
