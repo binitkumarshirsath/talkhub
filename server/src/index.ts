@@ -1,4 +1,5 @@
 import express from "express";
+import "express-async-errors";
 import { ENV_CONFIG } from "./config/env-config.js";
 
 const app = express();
