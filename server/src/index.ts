@@ -4,10 +4,15 @@ import { ENV_CONFIG } from "./config/env-config.js";
 import { routes } from "./routes/routes.js";
 import { errorHandler } from "./utils/error-handler.js";
 import { connectToDB } from "./config/db.js";
-
+import cors from "cors";
 const app = express();
 connectToDB();
 
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
 app.use(express.json());
 
 app.use("/api/v1", routes);

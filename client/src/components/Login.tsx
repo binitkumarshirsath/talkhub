@@ -1,8 +1,9 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import CustomInput from "./CustomInput";
 import { login } from "../api/auth";
+import { Bounce, toast } from "react-toastify";
 export type LoginInputs = {
-  firstName: string;
+  userName: string;
   password: string;
 };
 
@@ -15,7 +16,19 @@ const Login = () => {
 
   const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
     const response = await login(data);
-    console.log(response);
+    if (response.data.success) {
+      toast("🦄 Wow so easy!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
   };
 
   return (
@@ -33,7 +46,7 @@ const Login = () => {
           },
         }}
         label="Username"
-        name="UserName"
+        name="userName"
         register={register}
         errors={errors}
         key={3}
@@ -49,7 +62,7 @@ const Login = () => {
           },
         }}
         label="Password"
-        name="Password"
+        name="password"
         register={register}
         errors={errors}
         key={4}
