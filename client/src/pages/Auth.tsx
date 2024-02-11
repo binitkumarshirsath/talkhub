@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Register from "../components/Register";
+import Login from "../components/Login";
 
 const Auth = () => {
   const [isNewUser, setIsNewUser] = useState(true);
@@ -42,7 +43,7 @@ const Auth = () => {
           </button>
         </div>
 
-        {isNewUser ? <Register /> : null}
+        {isNewUser ? <Register /> : <Login />}
       </div>
     </div>
   );
