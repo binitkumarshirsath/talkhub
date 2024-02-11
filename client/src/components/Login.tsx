@@ -1,8 +1,9 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import CustomInput from "./CustomInput";
-type Inputs = {
+import { login } from "../api/auth";
+export type LoginInputs = {
   firstName: string;
-  lastName: string;
+  password: string;
 };
 
 const Login = () => {
@@ -10,9 +11,12 @@ const Login = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<LoginInputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
+    const response = await login(data);
+    console.log(response);
+  };
 
   return (
     <form
