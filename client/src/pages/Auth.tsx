@@ -1,7 +1,8 @@
 import { useState } from "react";
+import Register from "../components/Register";
 
 const Auth = () => {
-  const [isNewUser, setIsNewUser] = useState(false);
+  const [isNewUser, setIsNewUser] = useState(true);
   return (
     <div className="min-h-screen w-full flex  ">
       <div className="w-full flex flex-col items-center rounded-lg m-2">
@@ -24,22 +25,24 @@ const Auth = () => {
 
         <div className="flex rounded-lg bg-[#26262d] p-2">
           <button
-            onClick={() => setIsNewUser(false)}
-            className={`py-1 px-5 rounded tracking-wider font-medium ${
-              !isNewUser && "bg-[#121215] text-white"
-            }`}
-          >
-            REGISTER
-          </button>
-          <button
             onClick={() => setIsNewUser(true)}
             className={`py-1 px-5 rounded tracking-wider font-medium ${
               isNewUser && "bg-[#121215] text-white"
             }`}
           >
+            REGISTER
+          </button>
+          <button
+            onClick={() => setIsNewUser(false)}
+            className={`py-1 px-5 rounded tracking-wider font-medium ${
+              !isNewUser && "bg-[#121215] text-white"
+            }`}
+          >
             LOGIN
           </button>
         </div>
+
+        {isNewUser ? <Register /> : null}
       </div>
     </div>
   );
