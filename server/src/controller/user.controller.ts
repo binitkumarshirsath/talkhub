@@ -73,4 +73,12 @@ const signIn = async (req, res: Response) => {
   });
 };
 
-export { signIn, signUp };
+const signOut = async (req, res: Response) => {
+  res.cookie("token", "");
+  res.status(200).json({
+    success: true,
+    message: "Signed out successfully.",
+  });
+};
+
+export { signIn, signUp, signOut };
