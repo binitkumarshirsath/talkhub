@@ -2,14 +2,14 @@ import UserInfo from "./UserInfo";
 
 const MidHomeBar = () => {
   return (
-    <div className="flex flex-col  w-full gap-3 p-5 overflow-hidden ">
+    <div className="flex flex-col border-r col-span-2  border-gray-500  w-full gap-3 p-5 overflow-hidden ">
       <UserInfo />
       {/* chat section */}
       <div
-        className="flex h-full flex-col gap-4 overflow-y-scroll  max-h-[calc(100vh-200px)] min-h-[calc(100vh-300px)]"
+        className="flex h-full flex-col px-7 gap-4 overflow-y-scroll  max-h-[calc(100vh-200px)] min-h-[calc(100vh-300px)]"
         style={{ scrollbarWidth: "none" }}
       >
-        <div className="chat chat-start">
+        <div className="chat chat-start ">
           <div className="chat-image avatar">
             <div className="w-10 rounded-full">
               <img
