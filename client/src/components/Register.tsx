@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import CustomInput from "./CustomInput";
-import { signup } from "../api/auth";
-import toast from "react-hot-toast";
+
+import { useRegister } from "../hooks/useRegister";
 
 export type RegisterInputs = {
   firstName: string;
@@ -17,17 +17,10 @@ const Register = () => {
     formState: { errors },
   } = useForm<RegisterInputs>();
 
-  const onSubmit: SubmitHandler<RegisterInputs> = async (data) => {
-    try {
-      const response = await signup(data);
-      console.log(response.data);
-      if (response.data.success) {
-        toast.success("User created successfully. Please signin");
-      }
-    } catch (err) {
-      console.error("Error while signup", err);
-      toast.error("Something went wrong.");
-    }
+  const { mutate } = useRegister();
+
+  const onSubmit: SubmitHandler<RegisterInputs> = (data) => {
+    mutate(data);
   };
 
   return (

@@ -28,7 +28,7 @@ const signUp = async (req, res: Response) => {
     lastName,
     userName,
     password: hashedPassword,
-    profileImage: profileImage ? profileImage : null,
+    profileImage: `https://robohash.org/${firstName}`,
   });
 
   return res.status(201).send({
@@ -66,10 +66,13 @@ const signIn = async (req, res: Response) => {
   });
 
   res.status(200).send({
-    _id: userExists.id,
-    firstName: userExists.firstName,
+    user: {
+      _id: userExists.id,
+      firstName: userExists.firstName,
+      lastName: userExists.lastName,
+      profileImage: userExists.profileImage,
+    },
     success: true,
-    token,
   });
 };
 

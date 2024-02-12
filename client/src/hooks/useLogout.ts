@@ -3,6 +3,7 @@ import { logout } from "../api/auth";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/auth-context";
 import { useNavigate } from "react-router-dom";
+import { errorResponse } from "./type";
 
 export const useLogout = () => {
   const { setAuth } = useAuth();
@@ -12,8 +13,11 @@ export const useLogout = () => {
     onSuccess: () => {
       toast.success("Logged out successfully.");
       localStorage.removeItem("token");
-      setAuth("");
+      setAuth(null);
       navigate("/");
+    },
+    onError: ({ response }: errorResponse) => {
+      toast.error(response?.data.message);
     },
   });
 };

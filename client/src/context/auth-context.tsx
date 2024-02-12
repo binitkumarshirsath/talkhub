@@ -1,8 +1,16 @@
 import React, { createContext, useContext, useState } from "react";
 
+interface User {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  token: string;
+  profileImage: string;
+}
+
 type AuthContextType = {
-  auth: string;
-  setAuth: React.Dispatch<React.SetStateAction<string>>;
+  auth: User | null;
+  setAuth: React.Dispatch<React.SetStateAction<User | null>>;
 };
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -12,8 +20,10 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const _id = localStorage.getItem("token");
-  const [auth, setAuth] = useState(_id ? _id : "");
+  const userString = localStorage.getItem("user");
+  const user: User | null = userString ? JSON.parse(userString) : null;
+
+  const [auth, setAuth] = useState(user);
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
       {children}
