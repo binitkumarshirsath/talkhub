@@ -1,15 +1,17 @@
 import { Request, Response, NextFunction } from "express";
+import { CustomError } from "./custom-error.js";
 
 export const errorHandler = async (
-  err: Error,
+  err: CustomError,
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   console.error(err);
-  res.status(500).json({
+
+  res.status(err.statusCode).json({
     success: false,
-    message: err.message || "Internal server error.",
-    err,
+    message: err.message,
+    err: err,
   });
 };

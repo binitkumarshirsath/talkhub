@@ -1,8 +1,13 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import CustomInput from "./CustomInput";
-type Inputs = {
+import { signup } from "../api/auth";
+import toast from "react-hot-toast";
+
+export type RegisterInputs = {
   firstName: string;
   lastName: string;
+  password: string;
+  userName: string;
 };
 
 const Register = () => {
@@ -10,9 +15,20 @@ const Register = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<RegisterInputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<RegisterInputs> = async (data) => {
+    try {
+      const response = await signup(data);
+      console.log(response.data);
+      if (response.data.success) {
+        toast.success("User created successfully. Please signin");
+      }
+    } catch (err) {
+      console.error("Error while signup", err);
+      toast.error("Something went wrong.");
+    }
+  };
 
   return (
     <form
@@ -27,9 +43,13 @@ const Register = () => {
             value: 3,
             message: "Please Enter a minimum of 3 character",
           },
+          maxLength: {
+            value: 7,
+            message: "Max length of 7 is allowed.",
+          },
         }}
         label="FirstName"
-        name="FirstName"
+        name="firstName"
         register={register}
         errors={errors}
         key={1}
@@ -43,9 +63,13 @@ const Register = () => {
             value: 3,
             message: "Please Enter a minimum of 3 character",
           },
+          maxLength: {
+            value: 7,
+            message: "Max length of 7 is allowed.",
+          },
         }}
         label="LastName"
-        name="LastName"
+        name="lastName"
         register={register}
         errors={errors}
         key={2}
@@ -58,10 +82,14 @@ const Register = () => {
           minLength: {
             value: 3,
             message: "Please Enter a minimum of 3 character",
+            maxLength: {
+              value: 7,
+              message: "Max length of 7 is allowed.",
+            },
           },
         }}
         label="Username"
-        name="UserName"
+        name="userName"
         register={register}
         errors={errors}
         key={3}
@@ -75,9 +103,13 @@ const Register = () => {
             value: 3,
             message: "Please Enter a minimum of 3 character",
           },
+          maxLength: {
+            value: 8,
+            message: "Max length of 8 is allowed.",
+          },
         }}
         label="Password"
-        name="Password"
+        name="password"
         register={register}
         errors={errors}
         key={4}

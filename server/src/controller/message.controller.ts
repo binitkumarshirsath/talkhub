@@ -1,12 +1,13 @@
 import { Message } from "../models/message.model.js";
 import { Response } from "express";
+import { CustomError } from "../utils/custom-error.js";
 
 const sendMessage = async (req, res: Response) => {
   const { receiverId, content } = req.body;
   const senderId = req.user;
   console.log(receiverId, senderId, content);
   if (!receiverId || !content || !senderId)
-    throw new Error("Empty fields found.");
+    throw new CustomError("Empty fields found.", 204);
 
   const message = await Message.create({
     senderId,
@@ -14,7 +15,8 @@ const sendMessage = async (req, res: Response) => {
     content,
   });
 
-  if (!message) throw new Error("Error while creating messsage.");
+  if (!message)
+    throw new CustomError("CustomError while creating messsage.", 500);
 
   res.status(201).send({
     success: true,
@@ -26,7 +28,8 @@ const getChat = async (req, res: Response) => {
   const receiverId = req.params.receiverId;
   const senderId = req.user._id;
 
-  if (!receiverId || !senderId) throw new Error("Empty fields found.");
+  if (!receiverId || !senderId)
+    throw new CustomError("Empty fields found.", 404);
 
   const messages = await Message.find({
     senderId,
