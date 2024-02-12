@@ -25,7 +25,7 @@ const CustomInput = ({
       {required && <sup className="text-red-500">*</sup>}
     </label>
     <input
-      className="py-1 px-4 mb-4  outline-none focus:outline-[#7953F7] rounded-sm"
+      className="py-1 px-4 mb-4 text-black border-2 border-[#7953F7] bg-[#cbbcf9]  outline-none focus:outline-[#7953F7] rounded-lg"
       id={name}
       name={name}
       type={type}

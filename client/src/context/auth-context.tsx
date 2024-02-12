@@ -12,7 +12,8 @@ export const AuthContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [auth, setAuth] = useState("");
+  const _id = localStorage.getItem("token");
+  const [auth, setAuth] = useState(_id ? _id : "");
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
       {children}

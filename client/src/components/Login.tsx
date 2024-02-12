@@ -1,13 +1,18 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import CustomInput from "./CustomInput";
 import { login } from "../api/auth";
-import { Bounce, toast } from "react-toastify";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/auth-context";
+
 export type LoginInputs = {
   userName: string;
   password: string;
 };
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { setAuth } = useAuth();
   const {
     register,
     handleSubmit,
@@ -15,19 +20,18 @@ const Login = () => {
   } = useForm<LoginInputs>();
 
   const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
-    const response = await login(data);
-    if (response.data.success) {
-      toast("🦄 Wow so easy!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      });
+    try {
+      const response = await login(data);
+      if (response.data.success) {
+        toast.success("Logged in");
+        localStorage.setItem("userId", response.data._id);
+        localStorage.setItem("token", response.data.token);
+        setAuth(response.data._id);
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Error while logging in...", error);
+      // toast.error(error?.response?.data?.message);p
     }
   };
 
