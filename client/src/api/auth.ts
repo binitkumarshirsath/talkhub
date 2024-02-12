@@ -8,3 +8,5 @@ export const login = (payload: LoginInputs) =>
 
 export const signup = (payload: RegisterInputs) =>
   apiConnector.post(apiRoutes.register, payload);
+
+export const logout = () => apiConnector.post(apiRoutes.logout);

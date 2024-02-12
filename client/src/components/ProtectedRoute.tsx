@@ -8,7 +8,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (!auth) {
-      return navigate("/auth", { replace: true });
+      return navigate("/auth");
     }
   }, [navigate, auth]);
 

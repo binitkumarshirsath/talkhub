@@ -1,9 +1,11 @@
 import { useState } from "react";
-import Register from "../components/Register";
+// import Register from "../components/Register";
 import Login from "../components/Login";
+import Register from "../components/Register";
 
 const Auth = () => {
   const [isNewUser, setIsNewUser] = useState(true);
+
   return (
     <div className="min-h-screen w-full flex  ">
       <div className="w-full flex flex-col items-center rounded-lg m-2">

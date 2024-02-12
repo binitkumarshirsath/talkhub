@@ -1,6 +1,12 @@
 import { LogOut, Trash } from "lucide-react";
+import { useLogout } from "../hooks/useLogout";
 
 const RightHomeBar = () => {
+  const { mutate } = useLogout();
+
+  const handleLogout = () => {
+    mutate();
+  };
   return (
     <div className="flex flex-col  w-full gap-3 p-5 ">
       <div className="mx-auto flex  justify-between h-full items-center flex-col p-2">
@@ -16,7 +22,10 @@ const RightHomeBar = () => {
           </div>
         </div>
         <div className="flex gap-2 items-center justify-between w-full ">
-          <button className="px-5 text-lg py-2 bg-red-500 items-center font-semibold text-white flex gap-2 rounded-md">
+          <button
+            onClick={handleLogout}
+            className="px-5 text-lg py-2 bg-red-500 items-center font-semibold text-white flex gap-2 rounded-md"
+          >
             Logout <LogOut height={25} />
           </button>
           <button className="px-5 text-lg py-2 bg-red-500 items-center font-semibold text-white flex gap-2 rounded-md">

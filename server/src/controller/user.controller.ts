@@ -1,6 +1,6 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcrypt";
-import { Response, response } from "express";
+import { Response } from "express";
 import jwt from "jsonwebtoken";
 import { ENV_CONFIG } from "../config/env-config.js";
 import { CustomError } from "../utils/custom-error.js";

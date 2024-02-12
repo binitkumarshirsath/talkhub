@@ -1,9 +1,8 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import CustomInput from "./CustomInput";
-import { login } from "../api/auth";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/auth-context";
+
+import { useLogin } from "../hooks/useLogin";
+import { Loader } from "lucide-react";
 
 export type LoginInputs = {
   userName: string;
@@ -11,28 +10,16 @@ export type LoginInputs = {
 };
 
 const Login = () => {
-  const navigate = useNavigate();
-  const { setAuth } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginInputs>();
 
-  const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
-    try {
-      const response = await login(data);
-      if (response.data.success) {
-        toast.success("Logged in");
-        localStorage.setItem("userId", response.data._id);
-        localStorage.setItem("token", response.data.token);
-        setAuth(response.data._id);
-        navigate("/");
-      }
-    } catch (error) {
-      console.error("Error while logging in...", error);
-      // toast.error(error?.response?.data?.message);p
-    }
+  const { mutateAsync, isPending } = useLogin();
+
+  const onSubmit: SubmitHandler<LoginInputs> = async (params) => {
+    await mutateAsync(params);
   };
 
   return (
@@ -75,8 +62,9 @@ const Login = () => {
       <button
         className="bg-[#7953F7] w-fit rounded-sm font-semibold mt-3 px-4 py-1 text-white"
         type="submit"
+        disabled={isPending}
       >
-        Login
+        {isPending ? <Loader className="animate-spin" /> : "Login"}
       </button>
     </form>
   );
