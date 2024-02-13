@@ -27,7 +27,7 @@ const sendMessage = async (req, res: Response) => {
 const getChat = async (req, res: Response) => {
   const receiverId = req.params.receiverId;
   const senderId = req.user._id;
-
+  console.log({ receiverId, senderId });
   if (!receiverId || !senderId)
     throw new CustomError("Empty fields found.", 404);
 
@@ -36,10 +36,14 @@ const getChat = async (req, res: Response) => {
       { senderId, receiverId },
       { senderId: receiverId, receiverId: senderId },
     ],
-  }).sort({ createdAt: -1 });
+  })
+    .populate("senderId", "-password")
+    .populate("receiverId", "-password")
+    .sort({ createdAt: 1 })
+    .exec();
 
   if (messages.length === 0) {
-    res.status(200).send({
+    return res.status(200).send({
       success: true,
       message: "Initiate the chat",
       data: messages,

@@ -1,125 +1,32 @@
+import { useAuth } from "../context/auth-context";
+import { useChat } from "../context/chat-context";
+import { useGetChat } from "../hooks/useGetChat";
+import ChatBubble from "./ChatBubble";
 import UserInfo from "./UserInfo";
 
 const MidHomeBar = () => {
+  const { activeChat } = useChat();
+  const { auth } = useAuth();
+  const { data } = useGetChat(activeChat._id);
+
   return (
     <div className="flex flex-col border-r col-span-2  border-gray-500  w-full gap-3 p-5 overflow-hidden ">
-      <UserInfo />
+      <UserInfo user={activeChat} />
       {/* chat section */}
       <div
         className="flex h-full flex-col px-7 gap-4 overflow-y-scroll  max-h-[calc(100vh-200px)] min-h-[calc(100vh-300px)]"
         style={{ scrollbarWidth: "none" }}
       >
-        <div className="chat chat-start ">
-          <div className="chat-image avatar">
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS chat bubble component"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-              />
-            </div>
-          </div>
-          <div className="chat-bubble">
-            It was said that you would, destroy the Sith, not join them.
-          </div>
-        </div>
-        <div className="chat chat-end">
-          <div className="chat-image avatar">
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS chat bubble component"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-              />
-            </div>
-          </div>
-          <div className="chat-bubble">
-            It was you who would bring balance to the Force
-          </div>
-        </div>
-        <div className="chat chat-end">
-          <div className="chat-image avatar">
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS chat bubble component"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-              />
-            </div>
-          </div>
-          <div className="chat-bubble">Not leave it in Darkness</div>
-        </div>
-        <div className="chat chat-start">
-          <div className="chat-image avatar">
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS chat bubble component"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-              />
-            </div>
-          </div>
-          <div className="chat-bubble">
-            It was said that you would, destroy the Sith, not join them.
-          </div>
-        </div>
-        <div className="chat chat-end">
-          <div className="chat-image avatar">
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS chat bubble component"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-              />
-            </div>
-          </div>
-          <div className="chat-bubble">
-            It was you who would bring balance to the Force
-          </div>
-        </div>
-        <div className="chat chat-end">
-          <div className="chat-image avatar">
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS chat bubble component"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-              />
-            </div>
-          </div>
-          <div className="chat-bubble">Not leave it in Darkness</div>
-        </div>
-        <div className="chat chat-start">
-          <div className="chat-image avatar">
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS chat bubble component"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-              />
-            </div>
-          </div>
-          <div className="chat-bubble">
-            It was said that you would, destroy the Sith, not join them.
-          </div>
-        </div>
-        <div className="chat chat-end">
-          <div className="chat-image avatar">
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS chat bubble component"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-              />
-            </div>
-          </div>
-          <div className="chat-bubble">
-            It was you who would bring balance to the Force
-          </div>
-        </div>
-        <div className="chat chat-end">
-          <div className="chat-image avatar">
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS chat bubble component"
-                src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-              />
-            </div>
-          </div>
-          <div className="chat-bubble">Not leave it in Darkness</div>
-        </div>
+        {data?.data.map((chat, index) => {
+          return (
+            <ChatBubble
+              content={chat.content}
+              key={index}
+              imgSrc={chat.senderId.profileImage}
+              isUser={chat.senderId._id === auth?._id}
+            />
+          );
+        })}
       </div>
 
       <form className="mt-4  bottom-10 ">

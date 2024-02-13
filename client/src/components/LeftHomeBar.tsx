@@ -2,11 +2,13 @@ import { MessageSquareCodeIcon } from "lucide-react";
 import UserInfo from "./UserInfo";
 import { useGetAllUsers } from "../hooks/useGetUsers";
 import { useAuth } from "../context/auth-context";
+import { useChat } from "../context/chat-context";
 
 const LeftHomeBar = () => {
   const { data } = useGetAllUsers();
   const { auth } = useAuth();
-  console.log(auth);
+  const { setActiveChat } = useChat();
+
   return (
     <div className="w-full flex flex-col p-5 border-r border-gray-500">
       <UserInfo user={auth} />
@@ -53,7 +55,11 @@ const LeftHomeBar = () => {
             className="divide-y divide-gray-200 dark:divide-gray-700"
           >
             {data?.data.users.map((user) => (
-              <li key={user._id} className="py-2 sm:py-4">
+              <li
+                onClick={() => setActiveChat(user)}
+                key={user._id}
+                className="py-2 sm:py-4"
+              >
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <img

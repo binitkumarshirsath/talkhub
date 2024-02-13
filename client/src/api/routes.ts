@@ -5,6 +5,11 @@ const authAPIRoutes = {
   getAllUsers: "/auth/users",
 };
 
+const chatAPIRoutes = {
+  getChat: "/chat/get-chat",
+};
+
 export const apiRoutes = {
   ...authAPIRoutes,
+  ...chatAPIRoutes,
 };

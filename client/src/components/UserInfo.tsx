@@ -18,7 +18,7 @@ const UserInfo = ({ user }: UserInfoProps) => {
       />
       <div className="flex flex-col">
         <h1 className="font-semibold font-sans text-[#7953F7] text-lg ">
-          {user?.firstName} {user?.lastName}
+          {user?.firstName || "No one"} {user?.lastName || "Selected"}
         </h1>
         <div>{user?.userName}</div>
       </div>
