@@ -13,3 +13,21 @@ export type getAllUsersResponse = {
   total: number;
   users: User[];
 };
+
+export interface Chat {
+  content: string;
+  createdAt: Date;
+  senderId: User;
+  receiverId: User;
+}
+
+export type ChatData = {
+  success: true;
+  data: Chat[];
+  message: string;
+};
+
+interface sendMessageProps {
+  receiverId: string;
+  content: string;
+}

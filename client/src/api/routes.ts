@@ -7,6 +7,7 @@ const authAPIRoutes = {
 
 const chatAPIRoutes = {
   getChat: "/chat/get-chat",
+  sendMessage: "/chat/send",
 };
 
 export const apiRoutes = {
