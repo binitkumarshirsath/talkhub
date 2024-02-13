@@ -27,7 +27,7 @@ const sendMessage = async (req, res: Response) => {
 const getChat = async (req, res: Response) => {
   const receiverId = req.params.receiverId;
   const senderId = req.user._id;
-  console.log({ receiverId, senderId });
+
   if (!receiverId || !senderId)
     throw new CustomError("Empty fields found.", 404);
 

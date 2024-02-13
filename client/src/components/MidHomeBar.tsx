@@ -8,7 +8,7 @@ const MidHomeBar = () => {
   const { activeChat } = useChat();
   const { auth } = useAuth();
   const { data } = useGetChat(activeChat._id);
-
+  // console.log(data?.data);
   return (
     <div className="flex flex-col border-r col-span-2  border-gray-500  w-full gap-3 p-5 overflow-hidden ">
       <UserInfo user={activeChat} />
@@ -18,12 +18,17 @@ const MidHomeBar = () => {
         style={{ scrollbarWidth: "none" }}
       >
         {data?.data.map((chat, index) => {
+          if (!chat.senderId || !chat.receiverId) {
+            return null; // Skip rendering if senderId or receiverId is not available
+          }
+          const isUser = chat.senderId._id === auth?._id;
+          const imgSrc = isUser ? auth.profileImage : activeChat.profileImage;
           return (
             <ChatBubble
               content={chat.content}
               key={index}
-              imgSrc={chat.senderId.profileImage}
-              isUser={chat.senderId._id === auth?._id}
+              imgSrc={imgSrc}
+              isUser={isUser}
             />
           );
         })}

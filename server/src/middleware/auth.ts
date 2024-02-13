@@ -4,8 +4,6 @@ import { ENV_CONFIG } from "../config/env-config.js";
 import { CustomError } from "../utils/custom-error.js";
 
 export const auth = async (req, res: Response, next: NextFunction) => {
-  console.log("Cookie", JSON.stringify(req.cookies));
-
   const token =
     req.cookies.token || req.headers?.authorization?.replace("Bearer ", "");
 
