@@ -1,40 +1,10 @@
 import { MessageSquareCodeIcon } from "lucide-react";
 import UserInfo from "./UserInfo";
+import { useGetAllUsers } from "../hooks/useGetUsers";
 
 const LeftHomeBar = () => {
-  const users = [
-    {
-      username: "user1",
-      _id: 1,
-      name: "John Doe",
-      profilePic: "https://example.com/profile1.jpg",
-    },
-    {
-      username: "user2",
-      _id: 2,
-      name: "Jane Smith",
-      profilePic: "https://example.com/profile2.jpg",
-    },
-    {
-      username: "user3",
-      _id: 3,
-      name: "Alice Johnson",
-      profilePic: "https://example.com/profile3.jpg",
-    },
-    {
-      username: "user3",
-      _id: 4,
-      name: "Alice Johnson",
-      profilePic: "https://example.com/profile3.jpg",
-    },
-    {
-      username: "user3",
-      _id: 5,
-      name: "Alice Johnson",
-      profilePic: "https://example.com/profile3.jpg",
-    },
-    // Add more objects as needed
-  ];
+  const { data } = useGetAllUsers();
+
   return (
     <div className="w-full flex flex-col p-5 border-r border-gray-500">
       <UserInfo />
@@ -80,22 +50,22 @@ const LeftHomeBar = () => {
             role="list"
             className="divide-y divide-gray-200 dark:divide-gray-700"
           >
-            {users.map((user) => (
+            {data?.data.users.map((user) => (
               <li key={user._id} className="py-2 sm:py-4">
                 <div className="flex items-center">
                   <div className="flex-shrink-0">
                     <img
                       className="w-8 h-8 rounded-full"
-                      src={user.profilePic}
+                      src={user.profileImage}
                       alt="Neil image"
                     />
                   </div>
                   <div className="flex-1 min-w-0 ms-4">
                     <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                      {user.name}
+                      {user.firstName} {user.lastName}
                     </p>
                     <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                      {user.username}
+                      {user.userName}
                     </p>
                   </div>
                   <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">

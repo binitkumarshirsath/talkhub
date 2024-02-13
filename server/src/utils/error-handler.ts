@@ -7,7 +7,7 @@ export const errorHandler = async (
   res: Response,
   next: NextFunction
 ) => {
-  console.error(err);
+  // console.error(err);
 
   res.status(err.statusCode).json({
     success: false,

@@ -5,12 +5,17 @@ import { routes } from "./routes/routes.js";
 import { errorHandler } from "./utils/error-handler.js";
 import { connectToDB } from "./config/db.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+
 const app = express();
 connectToDB();
+
+app.use(cookieParser());
 
 app.use(
   cors({
     origin: "http://localhost:5173",
+    credentials: true,
   })
 );
 app.use(express.json());

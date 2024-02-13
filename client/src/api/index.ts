@@ -5,6 +5,7 @@ if (!URL) throw new Error("Base url missing.");
 
 const apiConnector = axios.create({
   baseURL: URL,
+  withCredentials: true,
 });
 
 export default apiConnector;

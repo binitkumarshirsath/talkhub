@@ -84,4 +84,13 @@ const signOut = async (req, res: Response) => {
   });
 };
 
-export { signIn, signUp, signOut };
+const getAllUsers = async (req, res: Response) => {
+  const users = await User.find({}).select("-password");
+  return res.status(200).json({
+    success: true,
+    total: users.length,
+    users,
+  });
+};
+
+export { signIn, signUp, signOut, getAllUsers };

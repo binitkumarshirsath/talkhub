@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { signup } from "../api/auth";
 import toast from "react-hot-toast";
-import { errorResponse } from "./type";
+import { errorResponse } from "../types";
 
 export const useRegister = () => {
   return useMutation({

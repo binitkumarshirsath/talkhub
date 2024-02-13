@@ -3,7 +3,7 @@ import { login } from "../api/auth";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/auth-context";
 import { useNavigate } from "react-router-dom";
-import { errorResponse } from "./type";
+import { errorResponse } from "../types";
 
 export const useLogin = () => {
   const { setAuth } = useAuth();
