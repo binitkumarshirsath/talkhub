@@ -4,7 +4,6 @@ export interface User {
   _id: string;
   firstName: string;
   lastName: string;
-  token: string;
   userName: string;
   profileImage: string;
 }

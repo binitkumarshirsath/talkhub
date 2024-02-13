@@ -70,6 +70,7 @@ const signIn = async (req, res: Response) => {
       _id: userExists.id,
       firstName: userExists.firstName,
       lastName: userExists.lastName,
+      userName: userExists.userName,
       profileImage: userExists.profileImage,
     },
     success: true,

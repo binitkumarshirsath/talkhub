@@ -32,8 +32,10 @@ const getChat = async (req, res: Response) => {
     throw new CustomError("Empty fields found.", 404);
 
   const messages = await Message.find({
-    senderId,
-    receiverId,
+    $or: [
+      { senderId, receiverId },
+      { senderId: receiverId, receiverId: senderId },
+    ],
   }).sort({ createdAt: -1 });
 
   if (messages.length === 0) {

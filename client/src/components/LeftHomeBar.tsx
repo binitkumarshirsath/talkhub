@@ -1,13 +1,15 @@
 import { MessageSquareCodeIcon } from "lucide-react";
 import UserInfo from "./UserInfo";
 import { useGetAllUsers } from "../hooks/useGetUsers";
+import { useAuth } from "../context/auth-context";
 
 const LeftHomeBar = () => {
   const { data } = useGetAllUsers();
-
+  const { auth } = useAuth();
+  console.log(auth);
   return (
     <div className="w-full flex flex-col p-5 border-r border-gray-500">
-      <UserInfo />
+      <UserInfo user={auth} />
       {/* Search bar too be made */}
       <form className="mt-4">
         <label
@@ -56,7 +58,11 @@ const LeftHomeBar = () => {
                   <div className="flex-shrink-0">
                     <img
                       className="w-8 h-8 rounded-full"
-                      src={user.profileImage}
+                      src={
+                        user.profileImage
+                          ? user.profileImage
+                          : "https://api.dicebear.com/7.x/lorelei/svg"
+                      }
                       alt="Neil image"
                     />
                   </div>
