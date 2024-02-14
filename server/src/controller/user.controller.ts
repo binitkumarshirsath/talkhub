@@ -86,7 +86,12 @@ const signOut = async (req, res: Response) => {
 };
 
 const getAllUsers = async (req, res: Response) => {
-  const users = await User.find({}).select("-password");
+  const userId = req.user._id;
+  const users = await User.find({
+    _id: {
+      $ne: userId,
+    },
+  }).select("-password");
   return res.status(200).json({
     success: true,
     total: users.length,

@@ -12,6 +12,7 @@ const MessageBox = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutate({ content, receiverId });
+    setContent("");
   };
   return (
     <form className="mt-4  bottom-10 " onSubmit={onSubmit}>

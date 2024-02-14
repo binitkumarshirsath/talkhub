@@ -12,6 +12,7 @@ console.log(
 export const ENV_CONFIG = {
   PORT: process.env.PORT,
   DB_URL: process.env.DB_URL,
+  FRONTEND_ORIGIN: process.env.FRONTEND_ORIGIN,
   ACCESS_TOKEN_KEY: process.env.ACCESS_TOKEN_KEY,
   ACCESS_TOKEN_EXPIRY: process.env.ACCESS_TOKEN_EXPIRY,
 };

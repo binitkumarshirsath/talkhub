@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 import { User } from "./auth-context";
 
 type ChatContextType = {
-  activeChat: User;
+  activeChat: User | null;
   setActiveChat: React.Dispatch<React.SetStateAction<User>>;
 };
 

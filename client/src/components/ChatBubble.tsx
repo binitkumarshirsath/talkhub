@@ -1,7 +1,7 @@
 interface ChatBubbleType {
   content: string;
   isUser: boolean;
-  imgSrc: string | null;
+  imgSrc?: string;
 }
 
 const ChatBubble = ({ content, imgSrc, isUser }: ChatBubbleType) => {

@@ -1,24 +1,33 @@
 import { LogOut, Trash } from "lucide-react";
 import { useLogout } from "../hooks/useLogout";
+import { useChat } from "../context/chat-context";
 
 const RightHomeBar = () => {
+  const { activeChat } = useChat();
+
   const { mutate } = useLogout();
 
   const handleLogout = () => {
     mutate();
   };
+
   return (
     <div className="flex flex-col  w-full gap-3 p-5 ">
       <div className="mx-auto flex  justify-between h-full items-center flex-col p-2">
         <div className="flex items-center flex-col">
           <img
             className="h-36 w-36 object-contain rounded-full"
-            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
+            src={
+              activeChat.profileImage ||
+              "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
+            }
             alt="receiver"
           />
           <div className="w-full  px-4 text-center mt-4">
-            <h1 className="text-3xl font-semibold">John Smigla</h1>
-            <h2 className="text-[#7953F7]">jhonnybhai</h2>
+            <h1 className="text-3xl font-semibold">
+              {activeChat.firstName} {activeChat.lastName}
+            </h1>
+            <h2 className="text-[#7953F7]">{activeChat.userName}</h2>
           </div>
         </div>
         <div className="flex gap-2 items-center justify-between w-full ">

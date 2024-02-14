@@ -3,12 +3,13 @@ import { useGetChat } from "../hooks/useGetChat";
 import ChatBubble from "./ChatBubble";
 
 interface ChatContainerProps {
-  receiver: User;
+  receiver: User | null;
 }
 
 const ChatContainer = ({ receiver }: ChatContainerProps) => {
   const { auth } = useAuth();
-  const { data } = useGetChat(receiver._id);
+  const receiverId = receiver ? receiver._id : null;
+  const { data } = useGetChat(receiverId);
   return (
     <div
       className="flex h-full flex-col px-7 gap-4 overflow-y-scroll  max-h-[calc(100vh-200px)] min-h-[calc(100vh-300px)]"
@@ -19,7 +20,7 @@ const ChatContainer = ({ receiver }: ChatContainerProps) => {
           return null; // Skip rendering if senderId or receiverId is not available
         }
         const isUser = chat.senderId._id === auth?._id;
-        const imgSrc = isUser ? auth.profileImage : receiver.profileImage;
+        const imgSrc = isUser ? auth.profileImage : receiver?.profileImage;
         return (
           <ChatBubble
             content={chat.content}
