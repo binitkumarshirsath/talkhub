@@ -10,8 +10,10 @@ import { createServer } from "node:http";
 import { Server } from "socket.io";
 
 const app = express();
+
 const server = createServer(app);
-const io = new Server(server, {
+
+export const io = new Server(server, {
   cors: {
     origin: ENV_CONFIG.FRONTEND_ORIGIN,
   },
@@ -33,11 +35,24 @@ app.use("/api/v1", routes);
 
 app.use(errorHandler);
 
-io.on("connection", (socket) => {
-  console.log("User connected!");
+const connectedUsers = {}; //store user details as {userId : socketId}
 
+io.on("connection", (socket) => {
+  console.log("User connected! Socket Id ==> ", socket.id);
+
+  const userId = socket.handshake.query.userId;
+  if (userId) connectedUsers[userId as string] = socket.id;
+
+  //send back active user list to *all* users , Object keys return array of keys
+  io.emit("active-user-list", Object.keys(connectedUsers));
+
+  //Clean up func
   socket.on("disconnect", () => {
-    console.log("User disconnected.");
+    console.log("User disconnected! Socket Id ==> ", socket.id);
+    //remove from connected user list
+    delete connectedUsers[socket.id];
+    // emit back connected users
+    io.emit("active-user-list", Object.keys(connectedUsers));
   });
 });
 

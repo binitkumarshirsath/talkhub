@@ -12,7 +12,7 @@ export const useLogout = () => {
     mutationFn: logout,
     onSuccess: () => {
       toast.success("Logged out successfully.");
-      localStorage.removeItem("token");
+      localStorage.removeItem("user");
       setAuth(null);
       navigate("/");
     },
