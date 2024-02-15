@@ -1,6 +1,7 @@
 import { Message } from "../models/message.model.js";
 import { Response } from "express";
 import { CustomError } from "../utils/custom-error.js";
+import { getSocketIdViaUserId, io } from "../index.js";
 
 const sendMessage = async (req, res: Response) => {
   const { receiverId, content } = req.body;
@@ -17,6 +18,13 @@ const sendMessage = async (req, res: Response) => {
 
   if (!message)
     throw new CustomError("CustomError while creating messsage.", 500);
+
+  // emit back response to receiverid
+  const receiverSocektId = getSocketIdViaUserId(receiverId);
+
+  if (receiverSocektId) {
+    io.to(receiverSocektId).emit("send-message", message);
+  }
 
   res.status(201).send({
     success: true,

@@ -8,6 +8,7 @@ import { errorHandler } from "./utils/error-handler.js";
 import { connectToDB } from "./config/db.js";
 import { createServer } from "node:http";
 import { Server } from "socket.io";
+import { CustomError } from "./utils/custom-error.js";
 
 const app = express();
 
@@ -37,15 +38,22 @@ app.use(errorHandler);
 
 const connectedUsers = {}; //store user details as {userId : socketId}
 
+export function getSocketIdViaUserId(userId: string) {
+  if (!userId) throw new CustomError("Cant obtain socket id.");
+
+  return connectedUsers[userId];
+}
+
 io.on("connection", (socket) => {
   console.log("User connected! Socket Id ==> ", socket.id);
 
-  const userId = socket.handshake.query.userId;
+  const userId = socket.handshake.auth.userId;
+
   if (userId) connectedUsers[userId as string] = socket.id;
 
   //send back active user list to *all* users , Object keys return array of keys
   io.emit("active-user-list", Object.keys(connectedUsers));
-
+  console.log("ConnectedUsers", connectedUsers);
   //Clean up func
   socket.on("disconnect", () => {
     console.log("User disconnected! Socket Id ==> ", socket.id);
