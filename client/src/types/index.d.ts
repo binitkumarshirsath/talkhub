@@ -17,8 +17,8 @@ export type getAllUsersResponse = {
 export interface Chat {
   content: string;
   createdAt: Date;
-  senderId: User;
-  receiverId: User;
+  senderId: string;
+  receiverId: string;
 }
 
 export type ChatData = {

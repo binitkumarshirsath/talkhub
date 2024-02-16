@@ -4,13 +4,14 @@ import { useSendMessage } from "../hooks/useSendMessage";
 
 const MessageBox = () => {
   const { activeChat } = useChat();
-  const receiverId = activeChat._id;
+  const receiverId = activeChat?._id;
   const [content, setContent] = useState("");
 
   const { mutate } = useSendMessage();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!receiverId) return;
     mutate({ content, receiverId });
     setContent("");
   };

@@ -28,6 +28,7 @@ const sendMessage = async (req, res: Response) => {
 
   res.status(201).send({
     success: true,
+    data: message,
     message: "Message sent successfully.",
   });
 };
@@ -45,8 +46,7 @@ const getChat = async (req, res: Response) => {
       { senderId: receiverId, receiverId: senderId },
     ],
   })
-    .populate("senderId", "-password")
-    .populate("receiverId", "-password")
+
     .sort({ createdAt: 1 })
     .exec();
 

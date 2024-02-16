@@ -5,8 +5,10 @@ export const useListenChat = () => {
   const { socket } = useSocket();
   useEffect(() => {
     if (socket) {
+      console.log("iran");
       socket.on("send-message", (messageData) => {
         // Handle the received users here
+        console.log(messageData);
       });
 
       return () => {
