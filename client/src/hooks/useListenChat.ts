@@ -10,7 +10,7 @@ export const useListenChat = () => {
       console.log("iran");
       socket.on("send-message", (messageData) => {
         // Handle the received users here
-        console.log(messageData);
+
         addMessage(messageData);
       });
 

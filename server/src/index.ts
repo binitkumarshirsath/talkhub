@@ -32,6 +32,13 @@ app.use(
 );
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.status(200).send({
+    message:
+      "This is a backend for chat app created by @binitkumarshirsath on github.",
+  });
+});
+
 app.use("/api/v1", routes);
 
 app.use(errorHandler);
