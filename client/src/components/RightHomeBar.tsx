@@ -6,7 +6,7 @@ const RightHomeBar = () => {
   const { activeChat } = useChat();
 
   const { mutate } = useLogout();
-
+  if (!activeChat) return null;
   const handleLogout = () => {
     mutate();
   };
