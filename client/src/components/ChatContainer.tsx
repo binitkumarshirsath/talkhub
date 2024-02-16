@@ -4,6 +4,7 @@ import { User, useAuth } from "../context/auth-context";
 import { useGetChatStore } from "../hooks/useGetChatStore";
 
 import ChatBubble from "./ChatBubble";
+import { useListenChat } from "../hooks/useListenChat";
 
 interface ChatContainerProps {
   receiver: User | null;
@@ -17,7 +18,7 @@ const ChatContainer = ({ receiver }: ChatContainerProps) => {
 
   // Ref for scrolling to bottom
   const chatEndRef = useRef<HTMLDivElement>(null);
-
+  useListenChat();
   useEffect(() => {
     // Scroll to bottom
 
