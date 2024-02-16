@@ -10,7 +10,7 @@ interface UseChatInterface {
 //to store chat messages ,
 export const useChatStore = create<UseChatInterface>((set) => ({
   chat: [],
-  setChat: (newChat) => set((state) => ({ chat: [...state.chat, ...newChat] })),
+  setChat: (newChat) => set(() => ({ chat: newChat })),
   addMessage: (newMessage) =>
     set((state) => ({ chat: [...state.chat, newMessage] })),
 }));

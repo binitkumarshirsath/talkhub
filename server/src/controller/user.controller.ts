@@ -72,8 +72,10 @@ const signIn = async (req, res: Response) => {
       firstName: userExists.firstName,
       lastName: userExists.lastName,
       userName: userExists.userName,
+
       profileImage: userExists.profileImage,
     },
+    token,
     success: true,
   });
 };

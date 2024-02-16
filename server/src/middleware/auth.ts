@@ -7,9 +7,9 @@ export const auth = async (req, res: Response, next: NextFunction) => {
   const token =
     req.cookies.token || req.headers?.authorization?.replace("Bearer ", "");
 
-  if (!token) throw new CustomError("Token is missing.", 404);
+  if (!token) throw new CustomError("Token is missing.", 401);
   const decode = jwt.verify(token, ENV_CONFIG.ACCESS_TOKEN_KEY);
-  if (!decode) throw new CustomError("Token invalid | expired.", 402);
+  if (!decode) throw new CustomError("Token invalid | expired.", 401);
 
   req.user = decode;
   next();

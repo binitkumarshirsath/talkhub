@@ -15,6 +15,7 @@ export const useLogin = () => {
       toast.success("User logged in successfully.");
       setAuth(data.data.user);
       localStorage.setItem("user", JSON.stringify(data.data.user));
+      localStorage.setItem("token", data.data.token);
       navigate("/");
     },
     onError: ({ response }: errorResponse) => {

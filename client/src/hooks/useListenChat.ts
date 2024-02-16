@@ -7,7 +7,6 @@ export const useListenChat = () => {
   const { addMessage, chat } = useChatStore();
   useEffect(() => {
     if (socket) {
-      console.log("iran");
       socket.on("send-message", (messageData) => {
         // Handle the received users here
 
