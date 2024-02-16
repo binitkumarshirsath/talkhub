@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useLogout } from "../hooks/useLogout";
+import toast from "react-hot-toast";
 
 const URL = import.meta.env.VITE_BASE_URL;
 if (!URL) throw new Error("Base url missing.");
@@ -27,9 +27,10 @@ apiConnector.interceptors.response.use(
     return response;
   },
   (error) => {
-    console.log("Error", error.response);
     if (error.response && error.response.status === 401) {
-      useLogout();
+      toast.error("Unauthorized access");
+      localStorage.clear();
+      window.location.replace("/auth");
     }
     return Promise.reject(error);
   }

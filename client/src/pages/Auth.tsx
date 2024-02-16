@@ -1,11 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import Register from "../components/Register";
 import Login from "../components/Login";
 import Register from "../components/Register";
+import { useAuth } from "../context/auth-context";
+import { useNavigate } from "react-router-dom";
 
 const Auth = () => {
+  const { auth } = useAuth();
   const [isNewUser, setIsNewUser] = useState(true);
-
+  const navigate = useNavigate();
+  //navigate back to home if already logged in
+  useEffect(() => {
+    if (auth) {
+      return navigate("/");
+    }
+  }, [auth, navigate]);
   return (
     <div className="min-h-screen w-full flex  ">
       <div className="w-full flex flex-col items-center rounded-lg m-2">
