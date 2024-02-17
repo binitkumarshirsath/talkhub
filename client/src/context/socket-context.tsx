@@ -28,7 +28,6 @@ export const SocketContextProvider = ({
 
   useEffect(() => {
     if (auth?._id) {
-      console.log("authid", auth._id);
       socket.auth = { userId: auth._id }; // Set the user's id for authentication
       socket.connect(); // Connect to the server
 

@@ -12,5 +12,7 @@ export const signup = (payload: RegisterInputs) =>
 
 export const logout = () => apiConnector.post(apiRoutes.logout);
 
-export const getAllUsers = () =>
-  apiConnector.get<getAllUsersResponse>(apiRoutes.getAllUsers);
+export const getAllUsers = (name?: string) =>
+  apiConnector.get<getAllUsersResponse>(apiRoutes.getAllUsers, {
+    params: { name },
+  });

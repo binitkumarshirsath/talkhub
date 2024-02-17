@@ -14,6 +14,7 @@ const ChatContainer = ({ receiver }: ChatContainerProps) => {
   const { auth } = useAuth();
   const receiverId = receiver ? receiver._id : null;
   //use to add new messages to array of message
+
   const { chat } = useGetChatStore(receiverId);
 
   // Ref for scrolling to bottom
@@ -38,6 +39,7 @@ const ChatContainer = ({ receiver }: ChatContainerProps) => {
         style={{ scrollbarWidth: "none" }}
       >
         {chat?.map((chat, index) => {
+          console.log({ chat });
           const isUser = chat.senderId === auth?._id;
           const imgSrc = isUser ? auth.profileImage : receiver?.profileImage;
 

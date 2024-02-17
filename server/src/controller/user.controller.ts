@@ -88,13 +88,37 @@ const signOut = async (req, res: Response) => {
   });
 };
 
+//to future self ->filters and all users should be same route
 const getAllUsers = async (req, res: Response) => {
   const userId = req.user._id;
+  const name = req.query?.name || "";
+
   const users = await User.find({
+    $or: [
+      {
+        firstName: {
+          $regex: name,
+          $options: "i",
+        },
+      },
+      {
+        lastName: {
+          $regex: name,
+          $options: "i",
+        },
+      },
+      {
+        userName: {
+          $regex: name,
+          $options: "i",
+        },
+      },
+    ],
     _id: {
       $ne: userId,
     },
   }).select("-password");
+
   return res.status(200).json({
     success: true,
     total: users.length,
