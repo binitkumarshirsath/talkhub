@@ -39,13 +39,12 @@ const ChatContainer = ({ receiver }: ChatContainerProps) => {
         style={{ scrollbarWidth: "none" }}
       >
         {chat?.map((chat, index) => {
-          console.log({ chat });
-          const isUser = chat.senderId === auth?._id;
+          const isUser = chat?.senderId === auth?._id;
           const imgSrc = isUser ? auth.profileImage : receiver?.profileImage;
 
           return (
             <ChatBubble
-              content={chat.content}
+              content={chat?.content}
               key={index}
               imgSrc={imgSrc}
               isUser={isUser}

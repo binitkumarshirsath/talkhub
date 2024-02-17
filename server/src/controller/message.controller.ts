@@ -8,7 +8,7 @@ const sendMessage = async (req, res: Response) => {
   const senderId = req.user;
   console.log(receiverId, senderId, content);
   if (!receiverId || !content || !senderId)
-    throw new CustomError("Empty fields found.", 204);
+    throw new CustomError("Empty fields found.", 404);
 
   const message = await Message.create({
     senderId,

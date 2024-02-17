@@ -8,6 +8,7 @@ export const useSendMessage = () => {
   return useMutation({
     mutationFn: sendMessage,
     onSuccess: ({ data }) => {
+      console.log({ data });
       addMessage(data.data);
     },
   });

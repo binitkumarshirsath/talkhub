@@ -12,6 +12,8 @@ const MessageBox = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!receiverId) return;
+    if (content === "") return;
+    console.log({ receiverId });
     mutate({ content, receiverId });
     setContent("");
   };
